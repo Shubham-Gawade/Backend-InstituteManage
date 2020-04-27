@@ -8,6 +8,7 @@ const exampleRoutes = require('./api/modules/example/example.routes');
 const userRoutes = require('./api/modules/user/user.routes');
 
 mongoose.connect("mongodb+srv://node-shop:node-shop@node-shop-rest-slxeu.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true });
+// mongoose.connect("mongodb+srv://root:root@cluster0-4hhue.mongodb.net/test1?retryWrites=true&w=majority", { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
 app.use(morgan("dev"));

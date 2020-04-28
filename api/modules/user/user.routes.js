@@ -3,9 +3,9 @@ const router = express.Router();
 
 const UserController = require('./user.controller');
 
-router.post("/signup", UserController.user_signup);
+router.post("/register", UserController.userRegister);
 
-router.post("/login", UserController.user_login);
+router.get("/login", UserController.userLogin);
 
 router.post("/forgetpass", UserController.user_forgotpass);
 

@@ -26,6 +26,17 @@ exports.register = async(Student) => {
     }
 };
 
+exports.createStudentDoc = (data) => {
+    const student =new Student({
+        _id: new mongoose.Types.ObjectId(),
+        firstname: data.firstname,
+        lastname: data.lastname,
+        email: data.email,
+        courses: data.courses
+      });
+    return student;
+}
+
 exports.display = async() => {
 
     const studentList = await Student.find({ });

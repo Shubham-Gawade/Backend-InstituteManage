@@ -15,13 +15,7 @@ exports.student_signup = async (req, res, next) => {
     });
   }
 
-  const student =new Student({
-    _id: new mongoose.Types.ObjectId(),
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    courses: req.body.courses
-  });
+  const student = await StudentService.createStudentDoc(req.body);
 
   const saveStudent = await StudentService.register(student);
 
@@ -53,6 +47,14 @@ exports.student_delete = async (req, res, next) => {
   
   const id=req.params.id;
 
+  const alreadyEmailExist = await StudentService.alreadyEmail(req.body);
+
+  if(alreadyEmailExist){
+    return res.status(404).json({
+      msg : "Student not Found"
+    });
+  }
+
   const student = await StudentService.delete(id);
 
   if(!student) {
@@ -69,7 +71,15 @@ exports.student_delete = async (req, res, next) => {
 
 exports.student_update = async (req, res, next) => {
 
- const studentUpdate = await StudentService.update(req.body);
+  const alreadyEmailExist = await StudentService.alreadyEmail(req.body);
+
+  if(alreadyEmailExist){
+    return res.status(404).json({
+      msg : "Student not Found"
+    });
+  }
+
+  const studentUpdate = await StudentService.update(req.body);
 
   if(!studentUpdate) {
     return res.status(404).json({

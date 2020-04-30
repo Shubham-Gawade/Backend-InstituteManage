@@ -13,4 +13,6 @@ router.get("/show", UserController.user_show);
 //pass _id of user after login to next component
 router.post("/confirmpass", UserController.user_confirmpass);
 
+router.delete("/delete/:id",UserController.user_Delete);
+
 module.exports = router;

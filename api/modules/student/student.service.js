@@ -62,7 +62,7 @@ exports.delete = async(id) => {
 exports.update = async(data) => {
 
     const studentUpdate = await Student.update({_id:data._id} , {firstname:data.firstname , 
-        lastname:data.lastname , email:data.email});
+        lastname:data.lastname , email:data.email ,courses:data.courses});
 
     if(studentUpdate) {
         return studentUpdate;

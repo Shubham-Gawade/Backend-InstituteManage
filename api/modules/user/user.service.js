@@ -91,13 +91,34 @@ exports.show = async () => {
       
 };
 
-exports.DeleteUser = async (data) => {
+exports.deleteUser = async (data) => {
 
-    const userDelete = await User.deleteOne({_id:data });
+    const userDelete = await User.deleteOne({_id: data });
 
     if(userDelete) {
         return userDelete;
     } else {
         return false;
     }
+};
+
+exports.updateUser = async (req) => {
+
+    const findUser = await User.findOne({_id: req.params.userId});
+  
+  if(findUser){
+    const userUpdated = await User.updateMany({_id:req.params.userId} , {$set:{ 
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password}});
+
+    if(userUpdated)
+    return true;
+    else
+    return false;
+  }
+  else
+  return false;
+
 };

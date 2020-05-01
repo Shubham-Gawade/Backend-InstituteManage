@@ -125,8 +125,8 @@ exports.user_confirmpass = (req, res, next) => {
 exports.user_Delete = async (req, res, next) => {
   
   try {
-    const id = req.params.id;
-    const user_del = await UserService.DeleteUser(id);
+    const user_id = req.params.userid;
+    const user_del = await UserService.deleteUser(user_id);
 
     if(user_del){
     res.status(200).json({
@@ -139,6 +139,32 @@ exports.user_Delete = async (req, res, next) => {
       message: error.message
       });
     }
+
+  } catch (error) {
+    res.status(500).json({
+      error,
+      message: error.message
+    });
+  }
+
+};
+
+exports.userUpdate = async (req, res, next) => {
+  
+  try {
+    const userUpdate = await UserService.updateUser(req);
+
+    if(userUpdate === true){
+      res.status(200).json({
+        message: 'Successfully updated'
+      });
+      }
+      else{
+      res.status(500).json({
+        error,
+        message: error.message
+        });
+      }
 
   } catch (error) {
     res.status(500).json({

@@ -91,3 +91,13 @@ exports.show = async () => {
       
 };
 
+exports.DeleteUser = async (data) => {
+
+    const userDelete = await User.deleteOne({_id:data });
+
+    if(userDelete) {
+        return userDelete;
+    } else {
+        return false;
+    }
+};

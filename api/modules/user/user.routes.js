@@ -3,16 +3,16 @@ const router = express.Router();
 
 const UserController = require('./user.controller');
 
-router.post("/register", UserController.userRegister);
+router.post("/userRegister", UserController.registerUser);
 
-router.get("/login", UserController.userLogin);
+router.get("/userLogin", UserController.loginUser);
 
-router.post("/forgetpass", UserController.user_forgotpass);
+router.post("/userForgetpass", UserController.forgotpassUser);
 
-router.get("/show", UserController.user_show);
-//pass _id of user after login to next component
-router.post("/confirmpass", UserController.user_confirmpass);
+router.get("/userGet", UserController.getUsers);
 
-router.delete("/delete/:id",UserController.user_Delete);
+router.post("/userConfirmpass", UserController.confirmpassUser);
+
+router.delete("/userDelete/:id",UserController.deleteUser);
 
 module.exports = router;

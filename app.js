@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const exampleRoutes = require('./api/modules/example/example.routes');
 const userRoutes = require('./api/modules/user/user.routes');
 const studentRoutes = require('./api/modules/student/student.routes');
+const courseRoutes = require('./api/modules/course/course.routes');
 
 
 mongoose.connect("mongodb+srv://root:root@cluster0-4hhue.mongodb.net/test1?retryWrites=true&w=majority", { useNewUrlParser: true });
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 app.use("/user", userRoutes);
 app.use("/example", exampleRoutes);
 app.use("/student", studentRoutes);
+app.use("/course", courseRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");

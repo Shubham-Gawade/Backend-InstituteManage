@@ -9,6 +9,6 @@ router.get("/studentDisplay", StudentController.student_display);
 
 router.delete("/studentDelete/:id", StudentController.student_delete);
 
-router.post("/studentUpdate", StudentController.student_update);
+router.put("/studentUpdate", StudentController.student_update);
 
 module.exports = router;

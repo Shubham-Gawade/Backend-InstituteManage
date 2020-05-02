@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const User = require("./user.model");
-const UserService = require('./user.service')
+const UserService = require('./user.service');
 
 exports.registerUser = async (req, res, next) => {
   try {
@@ -16,8 +16,6 @@ exports.registerUser = async (req, res, next) => {
       message: error.message
     });
   }
-  
-
 };
 
 exports.loginUser = async (req, res, next) => {
@@ -61,10 +59,10 @@ exports.forgotpassUser = async (req, res, next) => {
 
 exports.getUsers = async (req, res, next) => {
   try {
-  const comp = await UserService.getUser();
-  res.status(200).json({
-    comp
-  });
+    const users = await UserService.getUser();
+    res.status(200).json({
+      users
+    });
   }
   catch (error) {
     res.status(500).json({
@@ -96,20 +94,20 @@ exports.confirmpassUser = async (req, res, next) => {
 };
 
 exports.user_Delete = async (req, res, next) => {
-  
+
   try {
     const user_id = req.params.userid;
     const user_del = await UserService.deleteUser(user_id);
 
-    if(user_del){
-    res.status(200).json({
-      message: 'Successfully deleted'
-    });
+    if (user_del) {
+      res.status(200).json({
+        message: 'Successfully deleted'
+      });
     }
-    else{
-    res.status(500).json({
-      error,
-      message: error.message
+    else {
+      res.status(500).json({
+        error,
+        message: error.message
       });
     }
 
@@ -123,27 +121,18 @@ exports.user_Delete = async (req, res, next) => {
 };
 
 exports.userUpdate = async (req, res, next) => {
-  
   try {
-    const userUpdate = await UserService.updateUser(req);
-
-    if(userUpdate === true){
-      res.status(200).json({
-        message: 'Successfully updated'
-      });
-      }
-      else{
-      res.status(500).json({
-        error,
-        message: error.message
-        });
-      }
-
+    delete req.body._id
+    const condition = { _id: req.params.userId };
+    const newUserData = req.body;
+    const result = await UserService.updateUser(condition, newUserData);
+    res.status(200).json({
+      message: 'Successfully updated'
+    });
   } catch (error) {
     res.status(500).json({
       error,
       message: error.message
     });
   }
-
 };

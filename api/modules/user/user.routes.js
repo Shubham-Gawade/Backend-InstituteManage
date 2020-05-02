@@ -1,20 +1,21 @@
 const express = require("express");
 const router = express.Router();
+const { userRegisterValidation, throwValidationError } = require("./user.middleware");
 
 const UserController = require('./user.controller');
 
-router.post("/userRegister", UserController.registerUser);
+router.get("/", UserController.getUsers);
 
-router.get("/userLogin", UserController.loginUser);
+router.post("/register", userRegisterValidation, throwValidationError, UserController.registerUser);
 
-router.post("/userForgetpass", UserController.forgotpassUser);
+router.get("/login", UserController.loginUser);
 
-router.get("/userGet", UserController.getUsers);
+router.post("/forgetpass", UserController.forgotpassUser);
 
 router.post("/userConfirmpass", UserController.confirmpassUser);
 
-router.delete("/delete/:userid",UserController.user_Delete);
+router.delete("/:userid", UserController.user_Delete);
 
-router.put("/update/:userId", UserController.userUpdate);
+router.put("/:userId", UserController.userUpdate);
 
 module.exports = router;

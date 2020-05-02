@@ -80,6 +80,15 @@ exports.updatePassword = async (data) => {
   }
 };
 
+exports.getUser = async () => {
+  const comp = await User.find({});
+  if (comp) {
+    return comp;
+  } else {
+    return false;
+  }
+};
+
 exports.deleteUser = async (data) => {
 
     const userDelete = await User.deleteOne({_id: data });

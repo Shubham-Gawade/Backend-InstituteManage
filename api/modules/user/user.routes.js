@@ -11,6 +11,8 @@ router.post("/userForgetpass", UserController.forgotpassUser);
 
 router.get("/userGet", UserController.getUsers);
 
+router.post("/userConfirmpass", UserController.confirmpassUser);
+
 router.delete("/delete/:userid",UserController.user_Delete);
 
 router.put("/update/:userId", UserController.userUpdate);

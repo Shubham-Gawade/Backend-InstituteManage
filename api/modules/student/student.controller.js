@@ -3,93 +3,130 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 const StudentService = require("../student/student.service");
-const Student = require("../student/student.model");
 
-exports.student_signup = async (req, res, next) => {
-  
-  const alreadyEmailExist = await StudentService.alreadyEmail(req.body);
+exports.createStudent = async (req, res, next) => {
+  try {
+    const searchEmail = {
+      email: req.body.email,
+    };
 
-  if(!alreadyEmailExist){
-    return res.status(404).json({
-      msg : "Email already exist"
-    });
-  }
+    const studentData = await StudentService.getStudent(searchEmail);
 
-  const student = await StudentService.createStudentDoc(req.body);
+    if (studentData) {
+      return res.status(404).json({
+        msg: "Email already exist",
+      });
+    }
 
-  const saveStudent = await StudentService.register(student);
+    const student = await StudentService.createStudentDoc(req.body);
 
-  if(saveStudent) {
-    res.status(200).json({ msg: "Registration Successful" });
-  } else {
-    res.status(500).json({ msg: "Registration failed" });
-  }
-};
+    const saveStudent = await StudentService.createStudent(student);
 
-exports.student_display = async (req, res, next) => {
-  
-  const studentList = await StudentService.display();
-
-  if(!studentList) {
-    return res.status(404).json({
-      msg: "Can not Display Students"
-    });
-  }
-  else {
-    return res.status(201).json({
-      msg: "Display Students Done",
-      studentList: studentList
+    if (saveStudent) {
+      res.status(200).json({ msg: "Registration Successful" });
+    } else {
+      res.status(500).json({ msg: "Registration failed" });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error,
+      message: error.message,
     });
   }
 };
 
-exports.student_delete = async (req, res, next) => {
-  
-  const id=req.params.id;
+exports.getStudents = async (req, res, next) => {
+  try {
+    const studentList = await StudentService.getStudents();
 
-  const alreadyEmailExist = await StudentService.alreadyEmail(req.body);
-
-  if(alreadyEmailExist){
-    return res.status(404).json({
-      msg : "Student not Found"
-    });
-  }
-
-  const student = await StudentService.delete(id);
-
-  if(!student) {
-    return res.status(404).json({
-      msg: "Student not deleted"
-    });
-  }
-  else {
-    return res.status(201).json({
-      msg: "Student deleted"
+    if (!studentList) {
+      return res.status(404).json({
+        msg: "Can not Display Students",
+      });
+    } else {
+      return res.status(201).json({
+        msg: "Display Students Done",
+        studentList: studentList,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error,
+      message: error.message,
     });
   }
 };
 
-exports.student_update = async (req, res, next) => {
+exports.getStudent = async (req, res, next) => {
+  try {
+    const student = await StudentService.getStudent(req.body);
 
-  const alreadyEmailExist = await StudentService.alreadyEmail(req.body);
-
-  if(alreadyEmailExist){
-    return res.status(404).json({
-      msg : "Student not Found"
-    });
-  }
-
-  const studentUpdate = await StudentService.update(req.body);
-
-  if(!studentUpdate) {
-    return res.status(404).json({
-      msg: "Student not Updated"
-    });
-  }
-  else {
-    return res.status(201).json({
-      msg: "Student Updated"
+    if (!student) {
+      return res.status(404).json({
+        msg: "Can not Search Student",
+      });
+    } else {
+      return res.status(201).json({
+        msg: "Student Search Done",
+        student: student,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error,
+      message: error.message,
     });
   }
 };
 
+exports.deleteStudent = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const student = await StudentService.deleteStudent(id);
+
+    if (!student) {
+      return res.status(404).json({
+        msg: "Student not deleted",
+      });
+    } else {
+      return res.status(201).json({
+        msg: "Student deleted",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error,
+      message: error.message,
+    });
+  }
+};
+
+exports.updateStudent = async (req, res, next) => {
+  try {
+    const studentData = await StudentService.getStudent(req.body);
+
+    if (studentData) {
+      return res.status(404).json({
+        msg: "Student not Found",
+      });
+    }
+
+    const studentUpdate = await StudentService.updateStudent(req.body);
+
+    if (!studentUpdate) {
+      return res.status(404).json({
+        msg: "Student not Updated",
+      });
+    } else {
+      return res.status(201).json({
+        msg: "Student Updated",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error,
+      message: error.message,
+    });
+  }
+};

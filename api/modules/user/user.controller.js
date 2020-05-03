@@ -59,9 +59,9 @@ exports.forgotpassUser = async (req, res, next) => {
 
 exports.getUsers = async (req, res, next) => {
   try {
-    const users = await UserService.getUser();
+    const usersList = await UserService.getUser();
     res.status(200).json({
-      users
+      usersList
     });
   }
   catch (error) {
@@ -93,7 +93,7 @@ exports.confirmpassUser = async (req, res, next) => {
 
 };
 
-exports.user_Delete = async (req, res, next) => {
+exports.userDelete = async (req, res, next) => {
 
   try {
     const user_id = req.params.userid;

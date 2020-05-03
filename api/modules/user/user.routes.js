@@ -8,13 +8,13 @@ router.get("/", UserController.getUsers);
 
 router.post("/register", userRegisterValidation, throwValidationError, UserController.registerUser);
 
-router.get("/login", UserController.loginUser);
+router.post("/login", UserController.loginUser);
 
 router.post("/forgetpass", UserController.forgotpassUser);
 
 router.post("/userConfirmpass", UserController.confirmpassUser);
 
-router.delete("/:userid", UserController.user_Delete);
+router.delete("/:userid", UserController.userDelete);
 
 router.put("/:userId", UserController.userUpdate);
 

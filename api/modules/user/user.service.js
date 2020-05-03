@@ -81,9 +81,9 @@ exports.updatePassword = async (data) => {
 };
 
 exports.getUser = async () => {
-  const comp = await User.find({});
-  if (comp) {
-    return comp;
+  const usersList = await User.find({});
+  if (usersList) {
+    return usersList;
   } else {
     return false;
   }

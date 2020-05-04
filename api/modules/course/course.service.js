@@ -7,9 +7,9 @@ const CourseService = this;
 exports.createCourseDocument = (req) => {
   const data = new Course({
     _id: new mongoose.Types.ObjectId(),
-    name: req.body.name,
-    durationType: req.body.durationType,
-    durationValue: req.body.durationValue,
+    courseName: req.body.courseName,
+    duration: req.body.duration,
+    value: req.body.value,
     fees: req.body.fees,
     Institute_id: req.body.Institute_id,
   });
@@ -19,7 +19,7 @@ exports.createCourseDocument = (req) => {
 exports.createCourseService = async (courseData) => {
   const course = await Course.findOne({
     Institute_id: courseData.Institute_id,
-    name: courseData.name,
+    courseName: courseData.courseName,
   });
   if (course) {
     throw new Error("Course name already exist");
@@ -28,8 +28,19 @@ exports.createCourseService = async (courseData) => {
   }
 };
 
+exports.getCourseData = async (searchObject) => {
+  const condition = { _id: searchObject };
+  const course = await Course.findOne(condition);
+
+  if (!course) {
+    return false;
+  } else {
+    return course;
+  }
+};
+
 exports.getCourseService = async (instId) => {
-  const course = await Course.find({Institute_id: instId});
+  const course = await Course.find({ Institute_id: instId });
   if (course) {
     return course;
   } else {
@@ -52,7 +63,7 @@ exports.checkCourse = async (data) => {
 
 exports.findCourse = async (body) => {
   const course = await Course.findOne({
-    name: body.name,
+    courseName: body.courseName,
     Institute_id: body.Institute_id,
   });
   if (course) {
@@ -62,36 +73,33 @@ exports.findCourse = async (body) => {
   }
 };
 
-exports.checkCourseAndUpdate = async (body) => {
-  const course = await Course.findOne({
-    _id: body._id,
-    Institute_id: body.Institute_id,
-  });
-  if (course) {
-    return await Course.updateOne(
-      { _id: body._id },
-      {
-        name: body.name,
-        durationType: body.durationType,
-        durationValue: body.durationValue,
-        fees: body.fees,
-      }
-    );
+exports.updateCourse = async (data) => {
+  const courseUpdate = await Course.updateOne(
+    { _id: data.id },
+    {
+      courseName: data.courseName,
+      duration: data.duration,
+      value: data.value,
+      fees: data.fees,
+    }
+  );
+
+  if (courseUpdate) {
+    return courseUpdate;
   } else {
-    throw new Error("Course cannot update");
+    return false;
   }
 };
 
 exports.findCourseService = async (data) => {
-    const course = await Course.findOne({
-      Institute_id: data.instid,
-      name: data.courseName,
-    });
-  
-    if (course) {
-      return course;
-    } else {
-      throw new Error("Course does not exist ");
-    }
-  };
-  
+  const course = await Course.findOne({
+    Institute_id: data.instid,
+    courseName: data.courseName,
+  });
+
+  if (course) {
+    return course;
+  } else {
+    throw new Error("Course does not exist ");
+  }
+};

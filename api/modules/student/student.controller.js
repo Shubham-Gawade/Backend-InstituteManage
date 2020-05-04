@@ -99,7 +99,6 @@ exports.deleteStudent = async (req, res, next) => {
 
 exports.updateStudent = async (req, res, next) => {
   try {
-
     const studentUpdate = await StudentService.updateStudent(req.body);
 
     if (!studentUpdate) {

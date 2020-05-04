@@ -25,7 +25,7 @@ exports.createStudent = async (Student) => {
 };
 
 exports.getStudentData = async (searchObject) => {
-  const condition = {_id : searchObject};
+  const condition = { _id: searchObject };
   const student = await Student.findOne(condition);
 
   if (!student) {
@@ -66,7 +66,6 @@ exports.deleteStudent = async (id) => {
 };
 
 exports.updateStudent = async (data) => {
-  
   const studentUpdate = await Student.updateOne(
     { _id: data.id },
     {

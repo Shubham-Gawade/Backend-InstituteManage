@@ -14,18 +14,17 @@ exports.createStudent = async (req, res, next) => {
 
     if (studentData) {
       return res.status(404).json({
-        msg: "Email already exist",
+        message: "Email already exist",
       });
     }
 
     const student = await StudentService.createStudentDoc(req.body);
-
     const saveStudent = await StudentService.createStudent(student);
 
     if (saveStudent) {
-      res.status(200).json({ msg: "Registration Successful" });
+      res.status(200).json({ message: "Student Saved Successful" });
     } else {
-      res.status(500).json({ msg: "Registration failed" });
+      res.status(500).json({ message: "Student Saved failed" });
     }
   } catch (error) {
     res.status(500).json({
@@ -41,11 +40,11 @@ exports.getStudents = async (req, res, next) => {
 
     if (!studentList) {
       return res.status(404).json({
-        msg: "Can not Display Students",
+        message: "Can not Display Students",
       });
     } else {
       return res.status(201).json({
-        msg: "Display Students Done",
+        message: "Display Students Done",
         studentList: studentList,
       });
     }
@@ -63,11 +62,11 @@ exports.getStudent = async (req, res, next) => {
 
     if (!student) {
       return res.status(404).json({
-        msg: "Can not Search Student",
+        message: "Can not Search Student",
       });
     } else {
       return res.status(201).json({
-        msg: "Student Search Done",
+        message: "Student Search Done",
         student: student,
       });
     }
@@ -87,11 +86,11 @@ exports.deleteStudent = async (req, res, next) => {
 
     if (!student) {
       return res.status(404).json({
-        msg: "Student not deleted",
+        message: "Student not deleted",
       });
     } else {
       return res.status(201).json({
-        msg: "Student deleted",
+        message: "Student deleted",
       });
     }
   } catch (error) {
@@ -108,7 +107,7 @@ exports.updateStudent = async (req, res, next) => {
 
     if (studentData) {
       return res.status(404).json({
-        msg: "Student not Found",
+        message: "Student not Found",
       });
     }
 
@@ -116,11 +115,11 @@ exports.updateStudent = async (req, res, next) => {
 
     if (!studentUpdate) {
       return res.status(404).json({
-        msg: "Student not Updated",
+        message: "Student not Updated",
       });
     } else {
       return res.status(201).json({
-        msg: "Student Updated",
+        message: "Student Updated",
       });
     }
   } catch (error) {

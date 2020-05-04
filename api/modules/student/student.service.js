@@ -17,7 +17,7 @@ exports.createStudentDoc = (data) => {
 
 exports.createStudent = async (Student) => {
   const saveStudent = await Student.save();
-
+  console.log(saveStudent);
   if (saveStudent) {
     return saveStudent;
   } else {

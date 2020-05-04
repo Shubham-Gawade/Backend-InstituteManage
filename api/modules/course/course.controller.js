@@ -7,8 +7,12 @@ const Course = require("../course/course.model");
 
 exports.createCourse = async (req, res, next) => {
   try {
+    console.log("req : ",req.body);
+    
     const courseData = CourseService.createCourseDocument(req);
     const course = await CourseService.createCourseService(courseData);
+    console.log(course);
+    
     res.status(200).json({
       course,
     });

@@ -7,7 +7,7 @@ router.post("/studentRegistration", StudentController.createStudent);
 
 router.get("/studentDisplay", StudentController.getStudents);
 
-router.get("/studentSearch/:id", StudentController.getStudent);
+router.get("/studentSearch/:id", StudentController.getStudentData);
 
 router.delete("/studentDelete/:id", StudentController.deleteStudent);
 

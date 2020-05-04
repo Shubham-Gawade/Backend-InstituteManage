@@ -28,8 +28,8 @@ exports.createCourseService = async (courseData) => {
   }
 };
 
-exports.getCourseService = async () => {
-  const course = await Course.find({});
+exports.getCourseService = async (instId) => {
+  const course = await Course.find({Institute_id: instId});
   if (course) {
     return course;
   } else {

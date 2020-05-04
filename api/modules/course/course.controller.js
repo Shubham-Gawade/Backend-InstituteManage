@@ -26,7 +26,8 @@ exports.createCourse = async (req, res, next) => {
 
 exports.getCourses = async (req, res, next) => {
   try {
-    const course = await CourseService.getCourseService();
+    const Institute_Id = req.params.instId;
+    const course = await CourseService.getCourseService(Institute_Id);
 
     res.status(200).json({
       course,

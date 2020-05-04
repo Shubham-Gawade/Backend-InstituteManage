@@ -58,7 +58,9 @@ exports.getStudents = async (req, res, next) => {
 
 exports.getStudent = async (req, res, next) => {
   try {
-    const student = await StudentService.getStudent(req.body);
+    
+    const student = await StudentService.getStudent(req.params.id);
+    
 
     if (!student) {
       return res.status(404).json({
@@ -103,7 +105,9 @@ exports.deleteStudent = async (req, res, next) => {
 
 exports.updateStudent = async (req, res, next) => {
   try {
-    const studentData = await StudentService.getStudent(req.body);
+    console.log("update : ",req.body);
+    
+    const studentData = await StudentService.updateStudent(req.body);
 
     if (studentData) {
       return res.status(404).json({

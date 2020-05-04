@@ -26,7 +26,8 @@ exports.createStudent = async (Student) => {
 };
 
 exports.getStudent = async (searchObject) => {
-  const student = await Student.findOne(searchObject);
+  const condition = {_id : searchObject};
+  const student = await Student.findOne(condition);
 
   if (!student) {
     return false;
@@ -56,8 +57,10 @@ exports.deleteStudent = async (id) => {
 };
 
 exports.updateStudent = async (data) => {
-  const studentUpdate = await Student.update(
-    { _id: data._id },
+  console.log("inside : ", data);
+  
+  const studentUpdate = await Student.updateOne(
+    { _id: data.id },
     {
       firstname: data.firstname,
       lastname: data.lastname,

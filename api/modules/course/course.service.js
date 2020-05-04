@@ -81,3 +81,17 @@ exports.checkCourseAndUpdate = async (body) => {
     throw new Error("Course cannot update");
   }
 };
+
+exports.findCourseService = async (data) => {
+    const course = await Course.findOne({
+      Institute_id: data.instid,
+      name: data.courseName,
+    });
+  
+    if (course) {
+      return course;
+    } else {
+      throw new Error("Course does not exist ");
+    }
+  };
+  

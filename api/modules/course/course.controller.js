@@ -35,6 +35,24 @@ exports.getCourses = async (req, res, next) => {
   }
 };
 
+exports.findCourse = async (req, res, next) => {
+    try {
+      courseData={
+          courseName:req.body.name,
+          instid:req.body.instid
+      }
+      const course = await CourseService.findCourseService(courseData);
+      res.status(200).json({
+        course
+      });
+    } catch (error) {
+      res.status(500).json({
+        error,
+        message: error.message,
+      });
+    }
+  };
+  
 exports.deleteCourse = async (req, res, next) => {
   try {
     const id = req.params.id;

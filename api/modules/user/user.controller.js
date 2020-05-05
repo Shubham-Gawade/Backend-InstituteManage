@@ -1,8 +1,6 @@
-const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 const User = require("./user.model");
 const UserService = require('./user.service');
-
+const InstituteService = require('../institute/institute.services')
 exports.registerUser = async (req, res, next) => {
   try {
     const userData = UserService.createUserDoc(req);
@@ -25,8 +23,10 @@ exports.loginUser = async (req, res, next) => {
       password: req.body.password
     }
     const user = await UserService.loginUser(userObject);
+    const institute = await InstituteService.findOne({ownerId: user._id})
     res.status(200).json({
-      user
+      user,
+      institute
     });
   } catch (error) {
     res.status(500).json({

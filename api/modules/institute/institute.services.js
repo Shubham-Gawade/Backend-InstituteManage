@@ -33,7 +33,7 @@ exports.createInstituteDoc = (req) => {
 
 
 exports.getInstitutes = async (owner_Id) => {
-  const instituteList = await Institute.find({ownerId: owner_Id});
+  const instituteList = await Institute.find({ ownerId: owner_Id });
   if (instituteList) {
     return instituteList;
   } else {
@@ -41,13 +41,14 @@ exports.getInstitutes = async (owner_Id) => {
   }
 };
 
-exports.getInstitute = async (instituteId) => {
-  const institute = await Institute.find({_id: instituteId});
-  if (institute) {
-    return institute;
-  } else {
-    return false;
-  }
+exports.findAll = async (searchObject) => {
+  const institute = await Institute.find(searchObject);
+  return institute;
+};
+
+exports.findOne = async (searchObject) => {
+  const institute = await Institute.findOne(searchObject);
+  return institute;
 };
 
 exports.deleteInstitute = async (data) => {
@@ -63,13 +64,4 @@ exports.deleteInstitute = async (data) => {
 exports.updateInstitute = async (condition, newInstitureData) => {
   const result = await Institute.updateOne(condition, newInstitureData)
   return result
-};
-
-exports.findId = async (data) => {
-  const institute = await Institute.findOne({ ownerId: data.ownerId });
-  if (institute) {
-    return institute;
-  } else {
-    throw new Error("Institute not exist");
-  }
 };

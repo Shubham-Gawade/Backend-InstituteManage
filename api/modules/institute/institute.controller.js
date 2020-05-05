@@ -20,7 +20,7 @@ exports.registerInstitute = async (req, res, next) => {
 
 exports.findInstituteId = async (req, res, next) => {
   try {
-    const institute = await InstituteService.findId(req.body);
+    const institute = await InstituteService.findOne({ ownerId: req.body.ownerId });
     res.status(200).json({
       institute
     });
@@ -33,45 +33,24 @@ exports.findInstituteId = async (req, res, next) => {
 };
 
 
-exports.getInstitutes = async (req, res, next) => {
-    //Retreiving using institute id
-    const ownerId = req.params.ownerId;
-    
-    try {
-        const instituteList = await InstituteService.getInstitutes(ownerId);
-        res.status(200).json({
-        instituteList
-        });
-    }
-    catch (error) {
-        res.status(500).json({
-        error,
-        message: error.message
-        });
-    }
-};
-
 exports.getInstitute = async (req, res, next) => {
-  //Retreiving using institute id
   const instituteId = req.params.instituteId;
-  
   try {
-      const institute = await InstituteService.getInstitute(instituteId);
-      res.status(200).json({
+    const institute = await InstituteService.findOne({ _id: instituteId });
+    res.status(200).json({
       institute
-      });
+    });
   }
   catch (error) {
-      res.status(500).json({
+    res.status(500).json({
       error,
       message: error.message
-      });
+    });
   }
 };
 
 
 exports.instituteDelete = async (req, res, next) => {
-    //Deleting using institute id
   try {
     const instid = req.params.instid;
     const institute_del = await InstituteService.deleteInstitute(instid);
@@ -99,8 +78,6 @@ exports.instituteDelete = async (req, res, next) => {
 
 exports.instituteUpdate = async (req, res, next) => {
   try {
-    // delete req.body._id
-    //Updating using institute id
     const condition = { _id: req.params.instId };
     const newInstituteData = req.body;
     const result = await InstituteService.updateInstitute(condition, newInstituteData);

@@ -4,9 +4,9 @@ const router = express.Router();
 
 const InstituteController = require('./institute.controller');
 
-router.get("/:ownerId", InstituteController.getInstitutes);//done
+router.get("/:instituteId", InstituteController.getInstitute);
 
-router.get("/getinstitute/:instituteId", InstituteController.getInstitute);
+router.get("/owner/:ownerId", InstituteController.getInstitute);//done
 
 router.post("/register", InstituteController.registerInstitute);//done
 

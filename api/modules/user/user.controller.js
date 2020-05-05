@@ -57,9 +57,9 @@ exports.forgotpassUser = async (req, res, next) => {
 
 };
 
-exports.getUsers = async (req, res, next) => {
+exports.getUser = async (req, res, next) => {
   try {
-    const usersList = await UserService.getUser();
+    const usersList = await UserService.getUser(req.params.id);
     res.status(200).json({
       usersList
     });
@@ -122,10 +122,9 @@ exports.userDelete = async (req, res, next) => {
 
 exports.userUpdate = async (req, res, next) => {
   try {
-    delete req.body._id
-    const condition = { _id: req.params.userId };
-    const newUserData = req.body;
-    const result = await UserService.updateUser(condition, newUserData);
+    console.log("req.body",req.body);
+    const result = await UserService.updateUser(req.body);
+    console.log("result",result);
     res.status(200).json({
       message: 'Successfully updated'
     });

@@ -11,6 +11,7 @@ exports.createStudentDoc = (data) => {
     lastname: data.lastname,
     email: data.email,
     courses: data.courses,
+    institute: data.instituteId
   });
   return student;
 };
@@ -24,45 +25,20 @@ exports.createStudent = async (Student) => {
   }
 };
 
-exports.getStudentData = async (searchObject) => {
-  const condition = { _id: searchObject };
-  const student = await Student.findOne(condition);
-
-  if (!student) {
-    return false;
-  } else {
-    return student;
-  }
-};
 
 exports.getStudent = async (searchObject) => {
   const student = await Student.findOne(searchObject);
-
-  if (!student) {
-    return false;
-  } else {
-    return student;
-  }
+  return student;
 };
 
-exports.getStudents = async () => {
-  const studentList = await Student.find({});
-
-  if (studentList) {
-    return studentList;
-  } else {
-    return false;
-  }
+exports.getStudents = async (searchObject) => {
+  const studentList = await Student.find(searchObject);
+  return studentList;
 };
 
 exports.deleteStudent = async (id) => {
   const studentDelete = await Student.deleteOne({ _id: id });
-
-  if (studentDelete) {
-    return studentDelete;
-  } else {
-    return false;
-  }
+  return studentDelete;
 };
 
 exports.updateStudent = async (data) => {
@@ -76,9 +52,5 @@ exports.updateStudent = async (data) => {
     }
   );
 
-  if (studentUpdate) {
-    return studentUpdate;
-  } else {
-    return false;
-  }
+  return studentUpdate;
 };

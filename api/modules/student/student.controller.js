@@ -6,7 +6,7 @@ const StudentService = require("../student/student.service");
 
 exports.createStudent = async (req, res, next) => {
   try {
-    const studentData = await StudentService.getStudent(req.body);
+    const studentData = await StudentService.findOne(req.body);
 
     if (studentData) {
       return res.status(404).json({
@@ -30,31 +30,10 @@ exports.createStudent = async (req, res, next) => {
   }
 };
 
-exports.getStudents = async (req, res, next) => {
-  try {
-    const studentList = await StudentService.getStudents();
 
-    if (!studentList) {
-      return res.status(404).json({
-        message: "Can not Display Students",
-      });
-    } else {
-      return res.status(201).json({
-        message: "Display Students Done",
-        studentList: studentList,
-      });
-    }
-  } catch (error) {
-    res.status(500).json({
-      error,
-      message: error.message,
-    });
-  }
-};
-
-exports.getStudentData = async (req, res, next) => {
+exports.getStudent = async (req, res, next) => {
   try {
-    const student = await StudentService.getStudentData(req.params.id);
+    const student = await StudentService.getStudent({ _id: req.params.studentId });
 
     if (!student) {
       return res.status(404).json({
@@ -117,3 +96,17 @@ exports.updateStudent = async (req, res, next) => {
     });
   }
 };
+
+exports.getStudentsByInstituteId = (req, res, next) => {
+  try {
+    const students = StudentService.getStudents({ institute: req.params.instituteId });
+    return res.status(404).json({
+      students
+    });
+  } catch (error) {
+    res.status(500).json({
+      error,
+      message: error.message,
+    });
+  }
+}

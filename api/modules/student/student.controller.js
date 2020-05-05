@@ -100,7 +100,7 @@ exports.updateStudent = async (req, res, next) => {
 exports.getStudentsByInstituteId = (req, res, next) => {
   try {
     const students = StudentService.getStudents({ institute: req.params.instituteId });
-    return res.status(404).json({
+    return res.status(200).json({
       students
     });
   } catch (error) {

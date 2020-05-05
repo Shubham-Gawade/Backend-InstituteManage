@@ -25,9 +25,13 @@ exports.getCourses = async (req, res, next) => {
   try {
     const Institute_Id = req.params.instId;
     const course = await CourseService.getCourseService(Institute_Id);
-
+    const courseNameData = [];
+    for(let i =0;i<course.length;i++) {
+      courseNameData[i] = course[i].courseName;
+    }
     res.status(200).json({
       course,
+      courseNameData //This is to send the course name only for loading in ng - multiselect dropdown
     });
   } catch (error) {
     res.status(500).json({
@@ -44,6 +48,7 @@ exports.findCourse = async (req, res, next) => {
       instid: req.body.instid,
     };
     const course = await CourseService.findCourseService(courseData);
+    
     res.status(200).json({
       course,
     });

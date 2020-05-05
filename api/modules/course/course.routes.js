@@ -12,7 +12,7 @@ router.put("/", CourseController.updateCourse);
 
 router.post("/courseFind", CourseController.findCourse);
 
-router.delete("/courseDelete/:id/:instid", CourseController.deleteCourse);
+router.delete("/courseDelete/:id", CourseController.deleteCourse);
 
 router.post("/courseSearch", CourseController.searchCourse);
 

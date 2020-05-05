@@ -45,6 +45,16 @@ exports.loginUser = async (userData) => {
   }
 };
 
+exports.findId = async (userData) => {
+  const user = await User.findOne({ email: userData.email });
+  if (user) {
+    console.log(user)
+    return user;
+  } else {
+    throw new Error("User not exist");
+  }
+};
+
 exports.updateEmail = async (data) => {
   const emailexist = await User.findOne({ email: data.email });
 

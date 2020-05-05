@@ -39,8 +39,7 @@ exports.getCourseService = async () => {
 
 exports.checkCourse = async (data) => {
   const course = await Course.findOne({
-    Institute_id: data.instid,
-    _id: data.id,
+    _id: data.id
   });
 
   if (course) {

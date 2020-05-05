@@ -10,6 +10,8 @@ router.post("/register", userRegisterValidation, throwValidationError, UserContr
 
 router.post("/login", UserController.loginUser);
 
+router.post("/findId", UserController.findUserId);
+
 router.post("/forgetpass", UserController.forgotpassUser);
 
 router.post("/userConfirmpass", UserController.confirmpassUser);

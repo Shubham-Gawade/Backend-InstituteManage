@@ -56,9 +56,7 @@ exports.findCourse = async (req, res, next) => {
 exports.deleteCourse = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const instid = req.params.instid;
     const data = {
-      instid: instid,
       id: id
     };
     

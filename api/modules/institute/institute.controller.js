@@ -18,13 +18,27 @@ exports.registerInstitute = async (req, res, next) => {
   }
 };
 
+exports.findInstituteId = async (req, res, next) => {
+  try {
+    const institute = await InstituteService.findId(req.body);
+    res.status(200).json({
+      institute
+    });
+  } catch (error) {
+    res.status(500).json({
+      error,
+      message: error.message
+    });
+  }
+};
 
-exports.getInstitute = async (req, res, next) => {
+
+exports.getInstitutes = async (req, res, next) => {
     //Retreiving using institute id
     const ownerId = req.params.ownerId;
-    console.log("ParamsId : " + req.params.ownerId)
+    
     try {
-        const instituteList = await InstituteService.getInstitute(ownerId);
+        const instituteList = await InstituteService.getInstitutes(ownerId);
         res.status(200).json({
         instituteList
         });
@@ -35,6 +49,24 @@ exports.getInstitute = async (req, res, next) => {
         message: error.message
         });
     }
+};
+
+exports.getInstitute = async (req, res, next) => {
+  //Retreiving using institute id
+  const instituteId = req.params.instituteId;
+  
+  try {
+      const institute = await InstituteService.getInstitute(instituteId);
+      res.status(200).json({
+      institute
+      });
+  }
+  catch (error) {
+      res.status(500).json({
+      error,
+      message: error.message
+      });
+  }
 };
 
 

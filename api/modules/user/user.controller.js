@@ -36,6 +36,22 @@ exports.loginUser = async (req, res, next) => {
   }
 };
 
+exports.findUserId = async (req, res, next) => {
+  try {
+    userObject = {
+      email: req.body.email
+    }
+    const user = await UserService.findId(userObject);
+    res.status(200).json({
+      user
+    });
+  } catch (error) {
+    res.status(500).json({
+      error,
+      message: error.message
+    });
+  }
+};
 
 exports.forgotpassUser = async (req, res, next) => {
   try {

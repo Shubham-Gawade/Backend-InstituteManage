@@ -90,8 +90,8 @@ exports.updatePassword = async (data) => {
   }
 };
 
-exports.getUser = async () => {
-  const usersList = await User.find({});
+exports.getUser = async (id) => {
+  const usersList = await User.findOne({_id:id});
   if (usersList) {
     return usersList;
   } else {
@@ -109,7 +109,20 @@ exports.deleteUser = async (data) => {
   }
 };
 
-exports.updateUser = async (condition, newUserData) => {
-  const result = await User.updateOne(condition, newUserData)
-  return result
+exports.updateUser = async (data) => {
+
+  const userUpdate = await User.updateOne(
+    { _id: data._id },
+    {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email
+    }
+  );
+
+  if (userUpdate) {
+    return userUpdate;
+  } else {
+    return false;
+  }
 };

@@ -6,11 +6,7 @@ const StudentService = require("../student/student.service");
 
 exports.createStudent = async (req, res, next) => {
   try {
-    const searchEmail = {
-      email: req.body.email,
-    };
-
-    const studentData = await StudentService.getStudent(searchEmail);
+    const studentData = await StudentService.getStudent(req.body);
 
     if (studentData) {
       return res.status(404).json({
@@ -56,9 +52,9 @@ exports.getStudents = async (req, res, next) => {
   }
 };
 
-exports.getStudent = async (req, res, next) => {
+exports.getStudentData = async (req, res, next) => {
   try {
-    const student = await StudentService.getStudent(req.body);
+    const student = await StudentService.getStudentData(req.params.id);
 
     if (!student) {
       return res.status(404).json({
@@ -103,14 +99,6 @@ exports.deleteStudent = async (req, res, next) => {
 
 exports.updateStudent = async (req, res, next) => {
   try {
-    const studentData = await StudentService.getStudent(req.body);
-
-    if (studentData) {
-      return res.status(404).json({
-        message: "Student not Found",
-      });
-    }
-
     const studentUpdate = await StudentService.updateStudent(req.body);
 
     if (!studentUpdate) {

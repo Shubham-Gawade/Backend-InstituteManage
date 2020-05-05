@@ -17,11 +17,21 @@ exports.createStudentDoc = (data) => {
 
 exports.createStudent = async (Student) => {
   const saveStudent = await Student.save();
-  console.log(saveStudent);
   if (saveStudent) {
     return saveStudent;
   } else {
     return false;
+  }
+};
+
+exports.getStudentData = async (searchObject) => {
+  const condition = { _id: searchObject };
+  const student = await Student.findOne(condition);
+
+  if (!student) {
+    return false;
+  } else {
+    return student;
   }
 };
 
@@ -56,8 +66,8 @@ exports.deleteStudent = async (id) => {
 };
 
 exports.updateStudent = async (data) => {
-  const studentUpdate = await Student.update(
-    { _id: data._id },
+  const studentUpdate = await Student.updateOne(
+    { _id: data.id },
     {
       firstname: data.firstname,
       lastname: data.lastname,

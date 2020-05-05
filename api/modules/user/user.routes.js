@@ -4,7 +4,7 @@ const { userRegisterValidation, throwValidationError } = require("./user.middlew
 
 const UserController = require('./user.controller');
 
-router.get("/", UserController.getUsers);
+router.get("/:id", UserController.getUser);
 
 router.post("/register", userRegisterValidation, throwValidationError, UserController.registerUser);
 
@@ -16,6 +16,6 @@ router.post("/userConfirmpass", UserController.confirmpassUser);
 
 router.delete("/:userid", UserController.userDelete);
 
-router.put("/:userId", UserController.userUpdate);
+router.put("/", UserController.userUpdate);
 
 module.exports = router;

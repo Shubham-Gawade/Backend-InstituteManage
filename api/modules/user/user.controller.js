@@ -138,9 +138,7 @@ exports.userDelete = async (req, res, next) => {
 
 exports.userUpdate = async (req, res, next) => {
   try {
-    console.log("req.body",req.body);
     const result = await UserService.updateUser(req.body);
-    console.log("result",result);
     res.status(200).json({
       message: 'Successfully updated'
     });

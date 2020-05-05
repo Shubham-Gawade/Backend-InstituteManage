@@ -6,7 +6,7 @@ const StudentService = require("../student/student.service");
 
 exports.createStudent = async (req, res, next) => {
   try {
-    const studentData = await StudentService.findOne(req.body);
+    const studentData = await StudentService.getStudent({email: req.body.email});
 
     if (studentData) {
       return res.status(404).json({
@@ -55,7 +55,7 @@ exports.getStudent = async (req, res, next) => {
 
 exports.deleteStudent = async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = req.params.studentId;
 
     const student = await StudentService.deleteStudent(id);
 
@@ -97,9 +97,9 @@ exports.updateStudent = async (req, res, next) => {
   }
 };
 
-exports.getStudentsByInstituteId = (req, res, next) => {
+exports.getStudentsByInstituteId = async (req, res, next) => {
   try {
-    const students = StudentService.getStudents({ institute: req.params.instituteId });
+    const students = await StudentService.getStudents({ institute: req.params.instituteId });
     return res.status(200).json({
       students
     });

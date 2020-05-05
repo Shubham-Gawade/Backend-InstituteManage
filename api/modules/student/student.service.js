@@ -32,7 +32,7 @@ exports.getStudent = async (searchObject) => {
 };
 
 exports.getStudents = async (searchObject) => {
-  const studentList = await Student.find(searchObject);
+  const studentList = await Student.find();
   return studentList;
 };
 

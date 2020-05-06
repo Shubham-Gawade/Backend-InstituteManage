@@ -10,9 +10,9 @@ router.post("/register", userRegisterValidation, throwValidationError, UserContr
 
 router.post("/login", UserController.loginUser);
 
-router.post("/forgetpass", UserController.forgotpassUser);
+router.put("/forgetpass", UserController.forgotpassUser);
 
-router.post("/userConfirmpass", UserController.confirmpassUser);
+router.put("/userConfirmpass", UserController.confirmpassUser);
 
 router.delete("/:userid", UserController.userDelete);
 

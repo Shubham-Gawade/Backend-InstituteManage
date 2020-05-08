@@ -8,7 +8,8 @@ const instituteSchema = mongoose.Schema({
     state: { type: String,required: true, },
     city: { type: String,required: true, },
     pincode: { type: String,required: true, },
-    ownerId: { type: String, required: true,unique: true }
+    ownerId: { type: String, required: true,unique: true },
+    status: { type: String, enum : ['Active','Archieved','Deleted'], default: 'Active',required: true}
 });
 
 module.exports = mongoose.model('Institute', instituteSchema);

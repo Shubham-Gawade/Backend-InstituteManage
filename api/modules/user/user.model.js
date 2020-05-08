@@ -10,7 +10,8 @@ const userSchema = mongoose.Schema({
         validate: /^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$/,
         unique: true
     },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    status: { type: String, enum : ['Active','Archieved','Deleted'], default: 'Active',required: true}
 });
 
 module.exports = mongoose.model('User', userSchema);

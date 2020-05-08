@@ -6,7 +6,8 @@ const courseSchema = mongoose.Schema({
     duration: { type: String, required: true },
     value: { type: String, required: true },
     fees: { type: Number, required: true },
-    Institute_id: { type: String, required: true }
+    Institute_id: { type: String, required: true },
+    status: { type: String, enum : ['Active','Archieved','Deleted'], default: 'Active',required: true}
 });
 
 module.exports = mongoose.model('course', courseSchema);

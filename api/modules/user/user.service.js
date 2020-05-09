@@ -65,7 +65,7 @@ exports.updateEmail = async (data) => {
     Have a good day!`;
 
     const mailOptions = {
-      from: "shubhamiit91@gmail.com",
+      from: process.env.SENDER_EMAIL,
       to: data.email,
       subject: "Password Reset Link",
       text: html,

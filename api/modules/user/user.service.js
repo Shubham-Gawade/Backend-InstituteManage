@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const User = require("./user.model");
+var nodemailer = require("nodemailer");
 
 const UserService = this;
 
@@ -49,29 +50,50 @@ exports.updateEmail = async (data) => {
   const emailexist = await User.findOne({ email: data.email });
 
   if (emailexist) {
-    const updatepassword = await User.update(
-      { email: data.email },
-      { password: data.password }
-    );
-    if (updatepassword) {
-      return true;
-    }
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SENDER_EMAIL,
+        pass: process.env.SENDER_EMAIL_PASSWORD,
+      },
+    });
+
+    const html = `Hi there,
+          this is your one time generated link for reset password.
+          http://localhost:4200/auth/resetPassword/${emailexist._id}
+
+    Have a good day!`;
+
+    const mailOptions = {
+      from: "shubhamiit91@gmail.com",
+      to: data.email,
+      subject: "Password Reset Link",
+      text: html,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+    return true;
   } else {
     return false;
   }
 };
+
 exports.updatePassword = async (data) => {
   const userexist = await User.findOne({ _id: data._id });
 
   if (userexist) {
-    if (userexist.password === data.password) {
-      const updatepassword = await User.update(
-        { email: userexist.email },
-        { password: data.changepassword }
-      );
-      if (updatepassword) {
-        return true;
-      }
+    const updatepassword = await User.updateOne(
+      { _id: data._id },
+      { password: data.password }
+    );
+    if (updatepassword) {
+      return true;
     } else {
       return false;
     }
@@ -81,7 +103,8 @@ exports.updatePassword = async (data) => {
 };
 
 exports.getUser = async (id) => {
-  const usersList = await User.findOne({_id:id});
+  const usersList = await User.findOne({ _id: id });
+
   if (usersList) {
     return usersList;
   } else {
@@ -90,7 +113,6 @@ exports.getUser = async (id) => {
 };
 
 exports.deleteUser = async (data) => {
-
   const userDelete = await User.deleteOne({ _id: data });
   if (userDelete) {
     return userDelete;
@@ -100,13 +122,12 @@ exports.deleteUser = async (data) => {
 };
 
 exports.updateUser = async (data) => {
-
   const userUpdate = await User.updateOne(
     { _id: data._id },
     {
       firstName: data.firstName,
       lastName: data.lastName,
-      email: data.email
+      email: data.email,
     }
   );
 

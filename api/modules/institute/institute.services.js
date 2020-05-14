@@ -21,6 +21,7 @@ exports.createInstituteDoc = (req) => {
   const data = new Institute({
     _id: new mongoose.Types.ObjectId(),
     instituteName: req.body.instituteName,
+    instituteType: req.body.instituteType,
     instituteAddressLine1: req.body.instituteAddressLine1,
     instituteAddressLine2: req.body.instituteAddressLine2,
     state: req.body.state,

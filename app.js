@@ -9,9 +9,10 @@ const userRoutes = require('./api/modules/user/user.routes');
 const studentRoutes = require('./api/modules/student/student.routes');
 const courseRoutes = require('./api/modules/course/course.routes');
 const instituteRoutes = require('./api/modules/institute/institute.routes');
+const inquiryRoutes = require('./api/modules/inquiry/inquiry.routes');
 
 
-mongoose.connect("mongodb+srv://root:root@cluster0-4hhue.mongodb.net/test1?retryWrites=true&w=majority", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://vinidb:vinidbpass@cluster0-nrlvv.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
 app.use(morgan("dev"));
@@ -38,6 +39,7 @@ app.use("/example", exampleRoutes);
 app.use("/student", studentRoutes);
 app.use("/course", courseRoutes);
 app.use("/institute", instituteRoutes);
+app.use("/inquiry", inquiryRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");

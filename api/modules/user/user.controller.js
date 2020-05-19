@@ -49,13 +49,13 @@ exports.forgotpassUser = async (req, res, next) => {
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.SENDER_EMAIL,
-        pass: process.env.SENDER_EMAIL_PASSWORD
+        user: "shubhamiit91@gmail.com",
+        pass: "yjkdqshszjzuyvon"
       }
     });
     
     var mailOptions = {
-      from: process.env.SENDER_EMAIL,
+      from: "shubhamiit91@gmail.com",
       to: emailexist,
       subject: 'Password Reset Link',
       text: `https://institute-management-server.herokuapp.com/resetPassword/${emailexist._id}`

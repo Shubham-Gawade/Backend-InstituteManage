@@ -58,7 +58,7 @@ exports.forgotpassUser = async (req, res, next) => {
       from: 'shubhamiit91@gmail.com',
       to: data.email,
       subject: 'Reset Password Link',
-      text: `https://institue-management.herokuapp.com/resetPassword/${emailexist._id}`
+      text: `https://institue-management.herokuapp.com/resetPassword/${emailexist.id}`
     };
     
     transporter.sendMail(mailOptions, function(error, info){

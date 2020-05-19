@@ -1,6 +1,8 @@
 const User = require("./user.model");
 const UserService = require("./user.service");
 const InstituteService = require("../institute/institute.services");
+const nodemailer=require("nodemailer");
+
 exports.registerUser = async (req, res, next) => {
   try {
     const userData = UserService.createUserDoc(req);
@@ -55,8 +57,8 @@ exports.forgotpassUser = async (req, res, next) => {
     var mailOptions = {
       from: 'shubhamiit91@gmail.com',
       to: data.email,
-      subject: 'Sending Email using Node.js',
-      text: `https://institute-management-server.herokuapp.com/resetPassword/${emailexist.id}`
+      subject: 'Reset Password Link',
+      text: `https://institue-management.herokuapp.com/resetPassword/${emailexist._id}`
     };
     
     transporter.sendMail(mailOptions, function(error, info){

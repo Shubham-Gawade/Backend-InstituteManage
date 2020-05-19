@@ -46,29 +46,6 @@ exports.forgotpassUser = async (req, res, next) => {
 
     const emailexist = await UserService.updateEmail(data);
 
-    var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'shubhamiit91@gmail.com',
-        pass: 'yjkdqshszjzuyvon'
-      }
-    });
-    
-    var mailOptions = {
-      from: 'shubhamiit91@gmail.com',
-      to: data.email,
-      subject: 'Reset Password Link',
-      text: `https://institue-management.herokuapp.com/resetPassword/${emailexist.id}`
-    };
-    
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
-
     if (emailexist) {
       res.status(200).json({
         message: "Password Reset Link Sended on Your registered email",

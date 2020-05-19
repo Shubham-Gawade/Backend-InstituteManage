@@ -53,19 +53,19 @@ exports.updateEmail = async (data) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.SENDER_EMAIL,
-        pass: process.env.SENDER_EMAIL_PASSWORD,
+        user: 'shubhamiit91@gmail.com',
+        pass: 'yjkdqshszjzuyvon'
       },
     });
 
     const html = `Hi there,
           this is your one time generated link for reset password.
-          http://localhost:4200/auth/resetPassword/${emailexist._id}
+          https://institue-management.herokuapp.com/resetPassword/${emailexist._id}
 
     Have a good day!`;
 
     const mailOptions = {
-      from: process.env.SENDER_EMAIL,
+      from: 'shubhamiit91@gmail.com',
       to: data.email,
       subject: "Password Reset Link",
       text: html,

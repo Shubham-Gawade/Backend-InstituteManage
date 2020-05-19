@@ -6,9 +6,9 @@ const InstituteController = require('./institute.controller');
 
 router.get("/:instituteId", InstituteController.getInstitute);
 
-router.get("/owner/:ownerId", InstituteController.getInstitute);//done
+router.get("/owner/:ownerId", InstituteController.getInstitute);
 
-router.post("/register", InstituteController.registerInstitute);//done
+router.post("/register", InstituteController.registerInstitute);
 
 router.post("/findInstituteId", InstituteController.findInstituteId);
 

@@ -16,10 +16,10 @@ exports.createStudentDoc = (data) => {
   return student;
 };
 
-exports.createStudent = async (Student) => {
-  const saveStudent = await Student.save();
+exports.createStudent = async (StudentData) => {
+  const saveStudent = await StudentData.save();
   if (saveStudent) {
-    return saveStudent;
+    return true;
   } else {
     return false;
   }

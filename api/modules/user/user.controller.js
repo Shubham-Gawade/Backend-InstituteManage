@@ -1,8 +1,6 @@
 const User = require("./user.model");
 const UserService = require("./user.service");
 const InstituteService = require("../institute/institute.services");
-const nodemailer = require('nodemailer');
-
 exports.registerUser = async (req, res, next) => {
   try {
     const userData = UserService.createUserDoc(req);
@@ -45,29 +43,6 @@ exports.forgotpassUser = async (req, res, next) => {
     });
 
     const emailexist = await UserService.updateEmail(data);
-
-    var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: "shubhamiit91@gmail.com",
-        pass: "yjkdqshszjzuyvon"
-      }
-    });
-    
-    var mailOptions = {
-      from: "shubhamiit91@gmail.com",
-      to: emailexist,
-      subject: 'Password Reset Link',
-      text: `https://institute-management-server.herokuapp.com/resetPassword/${emailexist._id}`
-    };
-    
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
 
     if (emailexist) {
       res.status(200).json({

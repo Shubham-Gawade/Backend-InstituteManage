@@ -12,7 +12,6 @@ const instituteRoutes = require('./api/modules/institute/institute.routes');
 const inquiryRoutes = require('./api/modules/inquiry/inquiry.routes');
 
 mongoose.connect("mongodb+srv://shubhamg_7292:gawade2927@cluster0-cr1db.mongodb.net/InstituteManagement?retryWrites=true&w=majority", { useNewUrlParser: true });
-//mongoose.connect("mongodb+srv://root:root@cluster0-4hhue.mongodb.net/test1?retryWrites=true&w=majority", { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 
 app.use(morgan("dev"));
